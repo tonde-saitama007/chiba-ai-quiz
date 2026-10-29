@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#176382">
+  <meta name="description" content="千葉の名所・歴史・グルメに挑戦！30問から10問が出る、15秒制限の千葉愛クイズ。">
+  <title>あなたの千葉愛は何点？｜千葉愛クイズ</title>
+  <style>
+    :root{font-family:system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;color:#173d50;background:#f0f8fa}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;background:radial-gradient(circle at 90% 0%,#f7e9a5 0,transparent 35%),linear-gradient(165deg,#fbfdfc,#e3f2f7)}
+    button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid #ef7c38;outline-offset:3px}
+    .wrap{width:min(100% - 28px,680px);margin:0 auto;padding:25px 0 48px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.1em;color:#22647d;margin-bottom:20px}
+    .brand-mark{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:#147795;color:white;font-size:22px}
+    .card{background:#fff;border:1px solid #d5e7ec;border-radius:28px;box-shadow:0 16px 45px #174c6626;padding:clamp(22px,5vw,42px)}
+    .eyebrow{color:#806112;font-weight:900;letter-spacing:.15em;font-size:.85rem;margin:0 0 10px}
+    h1{font-size:clamp(2rem,6vw,3.25rem);line-height:1.25;letter-spacing:-.04em;margin:0 0 18px}
+    h2{font-size:clamp(1.5rem,4.5vw,2rem);line-height:1.4;margin:0 0 20px}
+    p{line-height:1.8}.lead{font-size:1.08rem;color:#506d78;margin:0 0 25px}
+    .hero-badge{width:90px;height:90px;display:grid;place-items:center;border-radius:26px;background:#fff0ad;font-size:48px;transform:rotate(-7deg);margin:0 0 24px}
+    .howto{background:#edf7fa;border-radius:16px;padding:16px 20px;margin:20px 0 25px;line-height:1.8}
+    .howto strong{color:#22647d}
+    .level-label{display:block;font-weight:800;margin-bottom:10px}
+    .levels{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:23px}
+    .level{background:#fff;border:2px solid #cadbea;color:#2a5170;border-radius:12px;padding:12px 5px;font-weight:800;min-height:48px}
+    .level[aria-pressed="true"]{background:#dfeffc;border-color:#147795;box-shadow:inset 0 0 0 1px #147795}
+    .primary,.secondary{width:100%;border:0;border-radius:15px;min-height:54px;font-weight:900;padding:12px 18px}
+    .primary{background:#147795;color:white;box-shadow:0 8px 0 #0d526b}.primary:hover{background:#10627d}.primary:active{transform:translateY(4px);box-shadow:0 4px 0 #0d526b}
+    .secondary{background:#e7f3f7;color:#1d6079;margin-top:12px}.secondary:hover{background:#d5eaf0}
+    .topline{display:flex;justify-content:space-between;gap:10px;font-weight:900;color:#346277;margin-bottom:12px}
+    .track{height:10px;border-radius:99px;background:#e1edf0;overflow:hidden;margin-bottom:22px}.fill{height:100%;width:0;background:#d6af35;transition:width .35s}
+    .timerbox{display:flex;align-items:center;justify-content:space-between;gap:14px;border:2px solid #d9e8ee;border-radius:16px;padding:11px 16px;margin-bottom:20px;font-weight:800}
+    .timerbox.urgent{color:#a13027;border-color:#e8a198;background:#fff6f3}
+    .time{font-size:1.5rem;font-variant-numeric:tabular-nums}
+    .question-tag{color:#806112;font-size:.82rem;font-weight:900;letter-spacing:.12em}
+    .answers{display:grid;gap:10px;margin:20px 0}
+    .answer{width:100%;text-align:left;background:#fff;border:2px solid #d5e5eb;border-radius:14px;padding:15px 17px;color:#244c60;font-weight:800;min-height:57px;line-height:1.45}
+    .answer:hover:not(:disabled){border-color:#147795;background:#f0f9fc}
+    .answer:disabled{cursor:default}.answer.correct{background:#e2f5e4;border-color:#16834c}.answer.wrong{background:#fff0eb;border-color:#d46a57}
+    .feedback{border-radius:16px;background:#f0f8fa;padding:18px 19px;margin:10px 0 18px;border-left:5px solid #3387a1}
+    .feedback.bad{background:#fff5ee;border-left-color:#d07a37}.feedback strong{font-size:1.1rem}.feedback p{margin:6px 0 0}
+    .result-score{font-size:clamp(4rem,15vw,6rem);font-weight:1000;line-height:1;margin:16px 0;color:#147795;letter-spacing:-.08em}
+    .result-score small{font-size:1.4rem;letter-spacing:0;margin-left:8px}
+    .title-chip{display:inline-block;background:#fff0ad;color:#74550e;border-radius:999px;font-weight:900;padding:8px 16px;margin:8px 0}
+    .result-copy{color:#4e6c78;margin-bottom:18px}.result-meta{border-top:1px solid #dce9ee;padding-top:15px;color:#4b6a76}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .foot{font-size:.78rem;color:#5e7580;text-align:center;margin-top:18px;line-height:1.6}
+    @media(max-width:430px){.wrap{width:min(100% - 20px,680px);padding-top:14px}.card{border-radius:22px}.levels{gap:5px}.level{font-size:.92rem}.topline{font-size:.9rem}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">千</span><span>CHIBA LOVE QUIZ</span></div>
+    <section id="start" class="card">
+      <div class="hero-badge" aria-hidden="true">🌊</div>
+      <p class="eyebrow">千葉を、どこまで知ってる？</p>
+      <h1>あなたの千葉愛は<br>何点？</h1>
+      <p class="lead">名所、グルメ、歴史まで。10問であなたの千葉愛を測ろう！</p>
+      <div class="howto"><strong>遊び方</strong><br>30問からランダムで10問。各問4択、制限時間は15秒。正解8点＋早押しボーナス最大2点で、100点満点！</div>
+      <button id="start-btn" class="primary" type="button" onclick="window.quizStartFallback && window.quizStartFallback()">クイズを始める →</button>
+    </section>
+    <section id="quiz" class="card" hidden aria-live="off">
+      <div class="topline"><span id="count"></span><span id="score"></span></div>
+      <div class="track" role="progressbar" aria-label="クイズの進行" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0"><div id="progress" class="fill"></div></div>
+      <div id="timerbox" class="timerbox"><span>残り時間</span><span id="time" class="time" aria-live="off">15.0秒</span></div>
+      <p id="category" class="question-tag"></p>
+      <h2 id="question" tabindex="-1"></h2>
+      <div id="answers" class="answers" role="group" aria-label="回答の選択肢"></div>
+      <div id="feedback" class="feedback" hidden role="status"></div>
+      <button id="next-btn" class="primary" type="button" hidden>次の問題へ →</button>
+    </section>
+    <section id="result" class="card" hidden aria-live="polite">
+      <p class="eyebrow">RESULT</p>
+      <h1>あなたの千葉愛は…</h1>
+      <div class="result-score"><span id="final-score">0</span><small>点 / 100点</small></div>
+      <div id="rank" class="title-chip"></div>
+      <p id="result-copy" class="result-copy"></p>
+      <p id="result-meta" class="result-meta"></p>
+      <button id="image-share-btn" class="primary" type="button">画像を保存する</button>
+      <button id="copy-btn" class="secondary" type="button">シェア用リンクをコピー</button>
+      <button id="retry-btn" class="secondary" type="button">もう一度挑戦</button>
+    </section>
+    <div class="foot">このクイズは非公式のファン作品です。千葉県・自治体による公式企画ではありません。</div>
+  </main>
+  <script>
+    "use strict";
+    // 全30問から毎回ランダムに10問。aは正解の選択肢番号（0〜3）。
+    const QUESTIONS = [
+  {
+    "c": "基本",
+    "q": "千葉県の県庁所在地は？",
+    "o": [
+      "千葉市",
+      "船橋市",
+      "柏市",
+      "成田市"
+    ],
+    "a": 0,
+    "e": "県庁があるのは千葉市です。"
+  },
+  {
+    "c": "地理",
+    "q": "千葉県の大部分を占める半島は？",
+    "o": [
+      "伊豆半島",
+      "房総半島",
+      "能登半島",
+      "紀伊半島"
+    ],
+    "a": 1,
+    "e": "千葉県は、太平洋に突き出す房総半島に位置しています。"
+  },
+  {
+    "c": "地理",
+    "q": "千葉県の東側に広がる海は？",
+    "o": [
+      "日本海",
+      "瀬戸内海",
+      "太平洋",
+      "オホーツク海"
+    ],
+    "a": 2,
+    "e": "房総半島の東側は太平洋に面しています。"
+  },
+  {
+    "c": "記念日",
+    "q": "千葉県民の日は何月何日？",
+    "o": [
+      "10月28日",
+      "11月14日",
+      "10月1日",
+      "6月15日"
+    ],
+    "a": 3,
+    "e": "1873年6月15日に千葉県が誕生したことにちなみます。"
+  },
+  {
+    "c": "花",
+    "q": "千葉県の花として広く親しまれているのは？",
+    "o": [
+      "なのはな",
+      "レンゲツツジ",
+      "バラ",
+      "サクラソウ"
+    ],
+    "a": 0,
+    "e": "なのはなは、千葉県の花として県民に広く親しまれています。"
+  },
+  {
+    "c": "シンボル",
+    "q": "千葉県の県民鳥は？",
+    "o": [
+      "ヒバリ",
+      "ホオジロ",
+      "シラコバト",
+      "キジ"
+    ],
+    "a": 1,
+    "e": "県民鳥にはホオジロが選ばれています。"
+  },
+  {
+    "c": "シンボル",
+    "q": "千葉県の魚は？",
+    "o": [
+      "ヒラメ",
+      "サケ",
+      "タイ",
+      "アユ"
+    ],
+    "a": 2,
+    "e": "県の魚はタイです。千葉県にゆかりの深い魚として選ばれました。"
+  },
+  {
+    "c": "シンボル",
+    "q": "千葉県の木は？",
+    "o": [
+      "ウメ",
+      "スギ",
+      "ケヤキ",
+      "マキ"
+    ],
+    "a": 3,
+    "e": "県の木はマキ。県内の庭や公園などでも見られます。"
+  },
+  {
+    "c": "キャラクター",
+    "q": "千葉県のマスコットキャラクターは？",
+    "o": [
+      "チーバくん",
+      "ぐんまちゃん",
+      "コバトン",
+      "くまモン"
+    ],
+    "a": 0,
+    "e": "チーバくんは千葉県のマスコットキャラクターです。"
+  },
+  {
+    "c": "キャラクター",
+    "q": "チーバくんを横から見ると、何の形？",
+    "o": [
+      "富士山",
+      "千葉県",
+      "日本列島",
+      "落花生"
+    ],
+    "a": 1,
+    "e": "チーバくんの横向きの姿は、千葉県の形をしています。"
+  },
+  {
+    "c": "農産物",
+    "q": "千葉の特産品「Qなっつ」は何の品種？",
+    "o": [
+      "いちご",
+      "梨",
+      "落花生",
+      "さつまいも"
+    ],
+    "a": 2,
+    "e": "Qなっつは千葉県が開発した落花生の品種です。"
+  },
+  {
+    "c": "郷土料理",
+    "q": "千葉の「なめろう」は、主に何を細かくたたいた料理？",
+    "o": [
+      "牛肉",
+      "じゃがいも",
+      "豆腐",
+      "魚"
+    ],
+    "a": 3,
+    "e": "魚に味噌や薬味を合わせ、包丁でたたいて作る郷土料理です。"
+  },
+  {
+    "c": "郷土料理",
+    "q": "なめろうと同じような材料を焼いて作る料理は？",
+    "o": [
+      "さんが焼き",
+      "お好み焼き",
+      "たこ焼き",
+      "どら焼き"
+    ],
+    "a": 0,
+    "e": "魚をたたいて味噌や薬味と合わせ、焼き上げるのがさんが焼きです。"
+  },
+  {
+    "c": "郷土料理",
+    "q": "太巻き祭りずしの特徴は？",
+    "o": [
+      "必ず温めて食べる",
+      "切り口に絵や模様が現れる",
+      "米を使わない",
+      "器ごと焼く"
+    ],
+    "a": 1,
+    "e": "切り口に花や文字などの模様が現れる、お祝いにも親しまれる寿司です。"
+  },
+  {
+    "c": "グルメ",
+    "q": "勝浦タンタンメンの赤いスープで特徴的な調味料は？",
+    "o": [
+      "ケチャップ",
+      "マヨネーズ",
+      "ラー油",
+      "わさび"
+    ],
+    "a": 2,
+    "e": "醤油ベースのスープにラー油を多く使うのが特徴です。"
+  },
+  {
+    "c": "産業",
+    "q": "野田市で古くから盛んな調味料づくりは？",
+    "o": [
+      "酢",
+      "みりん",
+      "ソース",
+      "しょうゆ"
+    ],
+    "a": 3,
+    "e": "野田は、しょうゆ醸造を中心に発展してきた町です。"
+  },
+  {
+    "c": "名所",
+    "q": "犬吠埼灯台がある市は？",
+    "o": [
+      "銚子市",
+      "館山市",
+      "成田市",
+      "柏市"
+    ],
+    "a": 0,
+    "e": "犬吠埼灯台は銚子市の海辺に立つ白い灯台です。"
+  },
+  {
+    "c": "漁業",
+    "q": "九十九里浜で江戸時代から盛んだった地曳網漁の魚は？",
+    "o": [
+      "マグロ",
+      "イワシ",
+      "サケ",
+      "フグ"
+    ],
+    "a": 1,
+    "e": "九十九里ではイワシの地曳網漁が発達しました。"
+  },
+  {
+    "c": "地名",
+    "q": "「九十九里浜」の読み方は？",
+    "o": [
+      "つくもりはま",
+      "きゅうじゅうきゅうりはま",
+      "くじゅうくりはま",
+      "ここのりはま"
+    ],
+    "a": 2,
+    "e": "くじゅうくりはまと読みます。太平洋沿いに長い砂浜が続きます。"
+  },
+  {
+    "c": "名所",
+    "q": "鋸山の、崖から見下ろす絶景スポットは？",
+    "o": [
+      "天橋立",
+      "龍宮窟",
+      "青の洞窟",
+      "地獄のぞき"
+    ],
+    "a": 3,
+    "e": "地獄のぞきは、鋸山の日本寺境内にある迫力ある展望スポットです。"
+  },
+  {
+    "c": "農産物",
+    "q": "南房総で栽培される「房州○○」。初夏の果物は？",
+    "o": [
+      "びわ",
+      "りんご",
+      "さくらんぼ",
+      "みかん"
+    ],
+    "a": 0,
+    "e": "南房総地域で育てられるびわは、房州びわとして知られます。"
+  },
+  {
+    "c": "伝統工芸",
+    "q": "房州うちわの骨や柄に使われる主な材料は？",
+    "o": [
+      "鉄",
+      "竹",
+      "ガラス",
+      "陶器"
+    ],
+    "a": 1,
+    "e": "房州うちわは竹を生かして作られ、丸い柄が特徴です。"
+  },
+  {
+    "c": "歴史",
+    "q": "「成田のお不動さま」と親しまれる寺は？",
+    "o": [
+      "善光寺",
+      "浅草寺",
+      "成田山新勝寺",
+      "清水寺"
+    ],
+    "a": 2,
+    "e": "成田市にある成田山新勝寺は、お不動さまとして親しまれています。"
+  },
+  {
+    "c": "グルメ",
+    "q": "成田山表参道の名物として知られる魚料理は？",
+    "o": [
+      "ふぐ刺し",
+      "鮎の塩焼き",
+      "サーモン寿司",
+      "うなぎ料理"
+    ],
+    "a": 3,
+    "e": "成田山へ続く表参道には、うなぎ料理を味わえる店が並びます。"
+  },
+  {
+    "c": "歴史",
+    "q": "古い町並みが残る「佐原」がある市は？",
+    "o": [
+      "香取市",
+      "千葉市",
+      "松戸市",
+      "市川市"
+    ],
+    "a": 0,
+    "e": "佐原は香取市にあり、小野川沿いなどに歴史ある町並みが残ります。"
+  },
+  {
+    "c": "人物",
+    "q": "佐原ゆかりの伊能忠敬が、測量で大きく貢献したものは？",
+    "o": [
+      "蒸気機関車",
+      "日本地図",
+      "望遠鏡",
+      "活版印刷機"
+    ],
+    "a": 1,
+    "e": "伊能忠敬は全国を測量し、精密な日本地図づくりに貢献しました。"
+  },
+  {
+    "c": "交通",
+    "q": "「海ほたる」パーキングエリアがある道路は？",
+    "o": [
+      "東名高速道路",
+      "中央自動車道",
+      "東京湾アクアライン",
+      "関越自動車道"
+    ],
+    "a": 2,
+    "e": "海ほたるは、東京湾アクアラインの海上にあるパーキングエリアです。"
+  },
+  {
+    "c": "交通",
+    "q": "東京湾アクアラインが千葉県側でつながる市は？",
+    "o": [
+      "成田市",
+      "銚子市",
+      "柏市",
+      "木更津市"
+    ],
+    "a": 3,
+    "e": "東京湾アクアラインは、木更津市と神奈川県川崎市を結びます。"
+  },
+  {
+    "c": "科学",
+    "q": "地質時代「チバニアン」の命名につながった地層がある市は？",
+    "o": [
+      "市原市",
+      "浦安市",
+      "流山市",
+      "野田市"
+    ],
+    "a": 0,
+    "e": "市原市田淵の地層が地質年代の国際基準地に認められました。"
+  },
+  {
+    "c": "自然",
+    "q": "銚子市から旭市に続く屏風ケ浦の特徴的な風景は？",
+    "o": [
+      "広大な砂漠",
+      "海沿いの断崖",
+      "氷河",
+      "サンゴ礁"
+    ],
+    "a": 1,
+    "e": "屏風ケ浦では、波に削られてできた断崖が海沿いに続きます。"
+  }
+];
+    const $=id=>document.getElementById(id);
+    const state={selected:[],index:0,points:0,correct:0,deadline:0,timer:null,locked:false};
+    const shuffle=list=>{const a=[...list];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+    function choose(){return shuffle(QUESTIONS).slice(0,10)}
+    function show(which){for(const id of ["start","quiz","result"])$(id).hidden=id!==which;window.scrollTo({top:0,behavior:"instant"})}
+    function stopTimer(){if(state.timer!==null){clearInterval(state.timer);state.timer=null}}
+    function start(){stopTimer();$("copy-btn").textContent="シェア用リンクをコピー";state.selected=choose();state.index=0;state.points=0;state.correct=0;show("quiz");renderQuestion()}
+    function renderQuestion(){
+      state.locked=false;const q=state.selected[state.index];
+      $("count").textContent=`第${state.index+1}問 / 10問`;
+      $("score").textContent=`${state.points}点`;
+      $("progress").style.width=`${state.index*10}%`;
+      document.querySelector(".track").setAttribute("aria-valuenow",String(state.index));
+      $("category").textContent=q.c;
+      $("question").textContent=q.q;
+      $("feedback").hidden=true;$("next-btn").hidden=true;
+      const answers=$("answers");answers.replaceChildren();
+      q.o.forEach((option,i)=>{const b=document.createElement("button");b.type="button";b.className="answer";b.textContent=`${"ABCD"[i]}. ${option}`;b.addEventListener("click",()=>answer(i));answers.append(b)});
+      $("timerbox").classList.remove("urgent");
+      state.deadline=performance.now()+15000;tick();state.timer=setInterval(tick,50);
+      $("question").focus({preventScroll:true});
+    }
+    function tick(){if(state.locked)return;const ms=Math.max(0,state.deadline-performance.now());$("time").textContent=`${(ms/1000).toFixed(1)}秒`;$("timerbox").classList.toggle("urgent",ms<=5000);if(ms<=0)answer(null)}
+    function answer(choice){
+      if(state.locked)return;
+      const remaining=Math.max(0,state.deadline-performance.now());
+      if(remaining<=0)choice=null;
+      state.locked=true;stopTimer();
+      const q=state.selected[state.index],isCorrect=choice===q.a;
+      let gained=0;
+      if(isCorrect){const elapsed=15-remaining/1000;const bonus=elapsed<=5?2:elapsed<=10?1:0;gained=8+bonus;state.points+=gained;state.correct++}
+      $("score").textContent=`${state.points}点`;
+      [...$("answers").children].forEach((b,i)=>{b.disabled=true;if(i===q.a)b.classList.add("correct");else if(i===choice)b.classList.add("wrong")});
+      const feedback=$("feedback");feedback.classList.toggle("bad",!isCorrect);
+      const heading=document.createElement("strong");heading.textContent=isCorrect?`正解！ +${gained}点`:choice===null?"時間切れ！":"残念！";
+      const detail=document.createElement("p");detail.textContent=`正解：${q.o[q.a]}。${q.e}`;
+      feedback.replaceChildren(heading,detail);feedback.hidden=false;
+      $("next-btn").textContent=state.index===9?"結果を見る →":"次の問題へ →";$("next-btn").hidden=false;
+      $("next-btn").focus({preventScroll:true});
+    }
+    function rankFor(points){if(points>=90)return["房総マスター","もう千葉の案内人になれそう！"];if(points>=70)return["千葉愛の達人","かなり深い千葉愛です！"];if(points>=50)return["千葉通","名所も歴史もよく知っています！"];if(points>=30)return["千葉探検家","新しい千葉をまだまだ発見できそう！"];return["千葉ルーキー","ここから千葉の魅力を探していこう！"]}
+    function finish(){stopTimer();const [title,copy]=rankFor(state.points);$("final-score").textContent=state.points;$("rank").textContent=title;$("result-copy").textContent=copy;$("result-meta").textContent=`10問中${state.correct}問正解`;$("progress").style.width="100%";show("result")}
+    function shareText(){const [title]=rankFor(state.points);return `あなたの千葉愛は何点？\n${state.points}点／100点！称号は「${title}」🌊\n10問中${state.correct}問正解。あなたも挑戦！\n▼ 千葉愛クイズに挑戦\nhttps://tonde-saitama007.github.io/chiba-ai-quiz/\n#千葉愛クイズ`}
+    async function copyResult(){
+      const url="https://tonde-saitama007.github.io/chiba-ai-quiz/";
+      let ok=false;
+      try{await navigator.clipboard.writeText(url);ok=true}catch(error){
+        const t=document.createElement("textarea");t.value=url;document.body.appendChild(t);t.focus();t.select();
+        try{ok=document.execCommand("copy")}catch(e){}t.remove();
+      }
+      $("copy-btn").textContent=ok?"リンクをコピーしました！":"コピーできませんでした";
+    }
+    async function shareResultImage(){
+      const button=$("image-share-btn");
+      button.disabled=true;button.textContent="画像を準備中…";
+      try{
+        const canvas=document.createElement("canvas");
+        canvas.width=1080;canvas.height=1080;
+        const ctx=canvas.getContext("2d");
+        if(!ctx)throw new Error("Canvas unavailable");
+        ctx.fillStyle="#f0f8fa";ctx.fillRect(0,0,1080,1080);
+        ctx.fillStyle="#147795";
+        ctx.beginPath();ctx.roundRect(55,50,100,100,24);ctx.fill();
+        ctx.fillStyle="#fff";ctx.font='bold 65px "Noto Sans JP",sans-serif';
+        ctx.textAlign="center";ctx.fillText("千",105,123);
+        ctx.textAlign="left";ctx.fillStyle="#22647d";
+        ctx.font='bold 43px sans-serif';ctx.fillText("CHIBA LOVE QUIZ",180,115);
+        ctx.shadowColor="rgba(36,75,112,.12)";ctx.shadowBlur=28;ctx.shadowOffsetY=12;
+        ctx.fillStyle="#fff";ctx.beginPath();ctx.roundRect(55,190,970,835,42);ctx.fill();
+        ctx.shadowColor="transparent";ctx.shadowBlur=0;ctx.shadowOffsetY=0;
+        ctx.fillStyle="#806112";ctx.font="bold 33px sans-serif";ctx.fillText("RESULT",115,285);
+        ctx.fillStyle="#173d50";ctx.font='bold 65px "Noto Sans JP",sans-serif';
+        ctx.fillText("あなたの千葉愛は…",115,395);
+        ctx.fillStyle="#147795";ctx.font="bold 175px sans-serif";
+        const score=String(state.points);
+        ctx.fillText(score,115,630);
+        const scoreWidth=ctx.measureText(score).width;
+        ctx.font='bold 57px "Noto Sans JP",sans-serif';ctx.fillText("点 / 100点",135+scoreWidth,620);
+        const [rank,description]=rankFor(state.points);
+        ctx.font='bold 46px "Noto Sans JP",sans-serif';
+        const chipWidth=Math.min(850,ctx.measureText(rank).width+78);
+        ctx.fillStyle="#fff0ad";ctx.beginPath();ctx.roundRect(115,695,chipWidth,95,48);ctx.fill();
+        ctx.fillStyle="#74550e";ctx.fillText(rank,154,759);
+        ctx.fillStyle="#506d78";ctx.font='39px "Noto Sans JP",sans-serif';
+        ctx.fillText(description,115,865);
+        const blob=await new Promise(resolve=>canvas.toBlob(resolve,"image/png"));
+        if(!blob)throw new Error("PNG unavailable");
+        const url=URL.createObjectURL(blob);
+        const link=document.createElement("a");
+        link.href=url;link.download="chiba-love-quiz-result.png";
+        document.body.appendChild(link);link.click();link.remove();
+        setTimeout(()=>URL.revokeObjectURL(url),60000);
+      }catch(error){
+        alert("画像を保存できませんでした。Chromeで開き直してお試しください。");
+      }finally{
+        button.disabled=false;button.textContent="画像を保存する";
+      }
+    }
+    $("image-share-btn").addEventListener("click",shareResultImage);
+    window.quizStartFallback=start;
+    $("next-btn").addEventListener("click",()=>{if(state.index===9)finish();else{state.index++;renderQuestion()}});
+    $("retry-btn").addEventListener("click",()=>{stopTimer();$("copy-btn").textContent="シェア用リンクをコピー";show("start")});
+    $("copy-btn").addEventListener("click",copyResult);
+    document.addEventListener("visibilitychange",()=>{if(document.hidden===false&&state.timer!==null)tick()});
+  </script>
+</body>
+</html>
